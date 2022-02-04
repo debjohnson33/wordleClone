@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const PORT = 3000;
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.use(express.static('public'));
 
 app.listen(PORT, () => {
-  console.log(`Wordle Clon App listening on port ${PORT}!`);
+  console.log(`Wordle Clone App listening on port ${PORT}!`);
 });
