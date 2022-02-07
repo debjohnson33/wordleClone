@@ -1,4 +1,4 @@
-import client from '.pool';
+import client from './pool.js';
 
 client.on('connect', () => {
   console.log('connected to the db');

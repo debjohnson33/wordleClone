@@ -1,13 +1,28 @@
-const { Client } = require('pg');
+const { Pool } = require('pg');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const client = new Client({
+const config = {
   user: 'debjohnson',
   host: 'localhost',
   database: 'wordleclone',
   port: 5432
-});
+};
 
+const pool = new Pool(config);
 
-module.exports = {client};
+const getAllWords = (callback) => {
+  const getAllWordsQuery = `SELECT * FROM words;`;
+  pool.query(getAllWordsQuery, (err, res) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, res.rows);
+    }
+  });
+};
+
+module.exports = {
+  pool,
+  getAllWords
+};
