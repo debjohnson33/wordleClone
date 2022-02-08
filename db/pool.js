@@ -22,7 +22,19 @@ const getAllWords = (callback) => {
   });
 };
 
+const getWordsStartWithRange = (letter, callback) => {
+  const getWordsStartQuery = `SELECT * FROM words WHERE word LIKE '${letter}%';`;
+  pool.query(getWordsStartQuery, (err, res) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, null, res.rows);
+    }
+  });
+};
+
 module.exports = {
   pool,
-  getAllWords
+  getAllWords,
+  getWordsStartWithRange
 };
