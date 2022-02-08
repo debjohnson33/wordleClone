@@ -16,6 +16,14 @@ app.get('/api/words/all', (req, res) => {
   });
 });
 
+app.get('/api/words/startWith?', (req, res) => {
+  let letter = req.query.letter;
+  db.getWordsStartWithRange(letter, (req, err, results) => {
+    console.log(`Getting words starting with ${letter}`);
+    err ? console.log(err) : res.send(results);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Wordle Clone App listening on port ${PORT}!`);
 });
