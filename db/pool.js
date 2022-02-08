@@ -33,8 +33,21 @@ const getWordsStartWithRange = (letter, callback) => {
   });
 };
 
+const getRandomWord = (callback) => {
+  let randomId = Math.floor(Math.random() * 2499);
+  const getRandomWordQuery = `SELECT * FROM words WHERE id = ${randomId};`;
+  pool.query(getRandomWordQuery, (err, res) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, res.rows);
+    }
+  });
+};
+
 module.exports = {
   pool,
   getAllWords,
-  getWordsStartWithRange
+  getWordsStartWithRange,
+  getRandomWord
 };

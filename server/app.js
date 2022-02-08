@@ -24,6 +24,13 @@ app.get('/api/words/startWith?', (req, res) => {
   });
 });
 
+app.get('/api/getRandomWord', (req, res) => {
+  db.getRandomWord((err, results) => {
+    console.log(`Getting random word`);
+    err ? console.log(err) : res.send(results);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Wordle Clone App listening on port ${PORT}!`);
 });
