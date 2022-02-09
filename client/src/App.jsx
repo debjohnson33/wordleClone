@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import WordGuessForm from "./components/WordGuessForm.jsx";
+import Alphabet from "./components/Alphabet.jsx";
 
 const App = () => {
   const [currentWord, setWord] = useState("");
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <div>
       <h1>{currentWord}</h1>
+      <Alphabet />
       <WordGuessForm currentWord={currentWord} />
     </div>
   );
