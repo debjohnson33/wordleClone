@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import GuessResult from "./GuessResult.jsx";
+
 const WordGuessForm = ({currentWord}) => {
   const [guess, setGuess] = useState("");
   const [wordsStartingWith, setWordStartingWith] = useState([]);
-
+  const [numGuesses, setNumGuesses] = useState(0);
+  const [win, setWin] = useState(false);
 
   const getWordsStartingWith = (word) => {
     let letter = word.charAt(0);
@@ -15,27 +18,35 @@ const WordGuessForm = ({currentWord}) => {
   }
 
   const checkGuess = (guess, currentWord) => {
+    setNumGuesses(numGuesses + 1);
     if (guess === currentWord) {
-      return true;
+      setWin(true);
     } else {
-      return false;
+      setWin(false);
     }
   }
 
   return (
-    <form onSubmit={event => {
-      event.preventDefault();
-      getWordsStartingWith(event.target[0].value)
-    }}>
-      <label htmlFor="word">Guess a 5 letter word</label>
-      <input
-        type="text"
-        name="word"
-        id="word"
-        onChange={event => setGuess(event.target.value)}
-      ></input>
-      <input type="submit"></input>
-    </form>
+    <div>
+      <GuessResult numGuesses={numGuesses} win={win} />
+      <form onSubmit={event => {
+        event.preventDefault();
+        getWordsStartingWith(event.target[0].value);
+        checkGuess(event.target[0].value, currentWord);
+        setGuess("");
+      }}>
+        <label htmlFor="word">Guess a 5 letter word</label>
+        <input
+          type="text"
+          name="word"
+          id="word"
+          value={guess}
+          onChange={event => setGuess(event.target.value)}
+        ></input>
+        <input type="submit"></input>
+      </form>
+    </div>
+
   );
 };
 
