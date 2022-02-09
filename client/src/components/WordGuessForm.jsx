@@ -30,18 +30,28 @@ const WordGuessForm = ({currentWord}) => {
     <div>
       <GuessResult numGuesses={numGuesses} win={win} />
       <form onSubmit={event => {
-        event.preventDefault();
-        getWordsStartingWith(event.target[0].value);
-        checkGuess(event.target[0].value, currentWord);
-        setGuess("");
-      }}>
+          event.preventDefault();
+          getWordsStartingWith(event.target[0].value);
+          checkGuess(event.target[0].value, currentWord);
+          setGuess("");
+        }}
+      >
         <label htmlFor="word">Guess a 5 letter word</label>
         <input
           type="text"
           name="word"
           id="word"
+          max="5"
           value={guess}
-          onChange={event => setGuess(event.target.value)}
+          onChange={event => {
+            if (event.target.value.length <= 5) {
+              setGuess(event.target.value);
+            } else {
+              alert("5 letters max");
+              setGuess("");
+            }
+          }
+        }
         ></input>
         <input type="submit"></input>
       </form>
