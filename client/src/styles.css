@@ -18,12 +18,12 @@ body {
 .container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
-
+  justify-content: center;
+  align-items: center;
 }
 
 .letter {
   border: 2px solid black;
   padding: 2%;
-  flex-basis: 6.7%;
+  flex-basis: 7%;
 }
