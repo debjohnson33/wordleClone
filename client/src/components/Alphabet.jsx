@@ -1,36 +1,38 @@
 import React from "react";
 
+import styles from "../styles.css";
+
 const Alphabet = () => {
   return (
     <div>
       <h1>Available letters:</h1>
-      <div class="container">
-        <div class="letter" id="A">A</div>
-        <div class="letter" id="B">B</div>
-        <div class="letter" id="C">C</div>
-        <div class="letter" id="D">D</div>
-        <div class="letter" id="E">E</div>
-        <div class="letter" id="F">F</div>
-        <div class="letter" id="G">G</div>
-        <div class="letter" id="H">H</div>
-        <div class="letter" id="I">I</div>
-        <div class="letter" id="J">J</div>
-        <div class="letter" id="K">K</div>
-        <div class="letter" id="L">L</div>
-        <div class="letter" id="M">M</div>
-        <div class="letter" id="N">N</div>
-        <div class="letter" id="O">O</div>
-        <div class="letter" id="P">P</div>
-        <div class="letter" id="Q">Q</div>
-        <div class="letter" id="R">R</div>
-        <div class="letter" id="S">S</div>
-        <div class="letter" id="T">T</div>
-        <div class="letter" id="U">U</div>
-        <div class="letter" id="V">V</div>
-        <div class="letter" id="W">W</div>
-        <div class="letter" id="X">X</div>
-        <div class="letter" id="Y">Y</div>
-        <div class="letter" id="Z">Z</div>
+      <div className={styles.container}>
+        <div className={styles.letter} id="A">A</div>
+        <div className={styles.letter} id="B">B</div>
+        <div className={styles.letter} id="C">C</div>
+        <div className={styles.letter} id="D">D</div>
+        <div className={styles.letter} id="E">E</div>
+        <div className={styles.letter} id="F">F</div>
+        <div className={styles.letter} id="G">G</div>
+        <div className={styles.letter} id="H">H</div>
+        <div className={styles.letter} id="I">I</div>
+        <div className={styles.letter} id="J">J</div>
+        <div className={styles.letter} id="K">K</div>
+        <div className={styles.letter} id="L">L</div>
+        <div className={styles.letter} id="M">M</div>
+        <div className={styles.letter} id="N">N</div>
+        <div className={styles.letter} id="O">O</div>
+        <div className={styles.letter} id="P">P</div>
+        <div className={styles.letter} id="Q">Q</div>
+        <div className={styles.letter} id="R">R</div>
+        <div className={styles.letter} id="S">S</div>
+        <div className={styles.letter} id="T">T</div>
+        <div className={styles.letter} id="U">U</div>
+        <div className={styles.letter} id="V">V</div>
+        <div className={styles.letter} id="W">W</div>
+        <div className={styles.letter} id="X">X</div>
+        <div className={styles.letter} id="Y">Y</div>
+        <div className={styles.letter} id="Z">Z</div>
       </div>
 
     </div>

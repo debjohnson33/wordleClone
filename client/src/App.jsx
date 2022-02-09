@@ -3,6 +3,7 @@ import axios from "axios";
 
 import WordGuessForm from "./components/WordGuessForm.jsx";
 import Alphabet from "./components/Alphabet.jsx";
+import styles from "./styles.css";
 
 const App = () => {
   const [currentWord, setWord] = useState("");
