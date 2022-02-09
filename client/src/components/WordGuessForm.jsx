@@ -22,6 +22,12 @@ const WordGuessForm = ({currentWord}) => {
     if (guess === currentWord) {
       setWin(true);
     } else {
+      // check if guess is in the list of words starting with the first letter
+      // check each letter to see if it's in the word
+      // change the background of the letter
+      //    if in the word but wrong place, change to yellow
+      //    if in the word and right place, change to green
+      //    if not in word at all change to black
       setWin(false);
     }
   }
