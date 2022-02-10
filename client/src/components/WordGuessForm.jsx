@@ -3,8 +3,8 @@ import axios from "axios";
 
 import GuessResult from "./GuessResult.jsx";
 
-const WordGuessForm = ({currentWord}) => {
-  const [guess, setGuess] = useState("");
+const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, setBlackLetters, setGuess, setGuesses}) => {
+
   // const [wordsStartingWith, setWordStartingWith] = useState([]);
   const [words, setWords] = useState([]);
   const [numGuesses, setNumGuesses] = useState(0);
@@ -25,29 +25,40 @@ const WordGuessForm = ({currentWord}) => {
       })
   },[]);
 
+  const changeToGreenBackground = (guess) => {
+    guess.split("").forEach(letter => {
+      setGreenLetters(greenLetters => [...greenLetters, letter]);
+    });
+  }
+
   const checkGuess = (guess, currentWord) => {
     setNumGuesses(numGuesses + 1);
+    setGuesses(guesses => [...guesses, guess]);
     if (guess === currentWord) {
+      // set all letters to green from the word
+      changeToGreenBackground(guess);
       setWin(true);
     } else {
-      // check if guess is in the list of words starting with the first letter
+      // check if guess is in the list of words
       if (words.find(element => element.word === guess)) {
 
         // check each letter to see if it's in the word
         for (let i = 0; i < currentWord.length; i++) {
+
           if (currentWord.includes(guess.charAt(i))) {
-            //let id = ;
-            console.log(currentWord.charAt(i))
             if (currentWord.charAt(i) === guess.charAt(i)) {
               //  if in the word and right place, change to green
-              document.getElementById(`${guess.charAt(i)}`).style.backgroundColor = "green";
+              // Call function to change background to green
+              setGreenLetters(greenLetters => [...greenLetters, guess.charAt(i)]);
             } else {
               //  if in the word but wrong place, change to yellow
-              document.getElementById(`${guess.charAt(i)}`).style.backgroundColor = "yellow";
+              // Call function to change background to yellow
+              setYellowLetters(yellowLetters => [...yellowLetters, guess.charAt(i)]);
             }
           } else {
             // if not in word at all change to black
-            document.getElementById(`${guess.charAt(i)}`).style.backgroundColor = "black";
+            // Call function to change background to black
+            setBlackLetters(blackLetters => [...blackLetters, guess.charAt(i)]);
           }
         }
       } else {
@@ -59,7 +70,8 @@ const WordGuessForm = ({currentWord}) => {
 
   return (
     <div>
-      <GuessResult numGuesses={numGuesses} win={win} />
+      <GuessResult numGuesses={numGuesses} win={win} guess={guess} />
+
       <form onSubmit={event => {
           event.preventDefault();
           //getWordsStartingWith(event.target[0].value)
