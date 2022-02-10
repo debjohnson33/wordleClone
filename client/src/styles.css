@@ -27,3 +27,22 @@ body {
   padding: 2%;
   flex-basis: 7%;
 }
+
+.guessescontainer {
+  border: 2px solid rgb(195, 0, 255);
+  background-color: rgb(242, 215, 250);
+  margin: 2%;
+}
+
+.wordcontainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.guesstile {
+  border: 2px solid black;
+  padding: 2%;
+  flex-basis: 8%;
+}
