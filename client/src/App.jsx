@@ -3,7 +3,6 @@ import axios from "axios";
 
 import WordGuessForm from "./components/WordGuessForm.jsx";
 import Alphabet from "./components/Alphabet.jsx";
-import GuessesDisplay from "./components/GuessesDisplay.jsx";
 import styles from "./styles.css";
 
 const App = () => {
@@ -16,7 +15,6 @@ const App = () => {
   // Array of black letters
   const [blackLetters, setBlackLetters] = useState([]);
   const [guess, setGuess] = useState("");
-  const [guesses, setGuesses] = useState([]);
 
   useEffect(() => {
     axios.get('/api/getRandomWord')
@@ -28,10 +26,8 @@ const App = () => {
 
   return (
     <div>
-      <h1>{currentWord}</h1>
       <Alphabet greenLetters={greenLetters} yellowLetters={yellowLetters} blackLetters={blackLetters} />
-      <WordGuessForm guess={guess} currentWord={currentWord} setGreenLetters={setGreenLetters} setYellowLetters={setYellowLetters} setBlackLetters={setBlackLetters} setGuess={setGuess} setGuesses={setGuesses} />
-      <GuessesDisplay guesses={guesses} greenLetters={greenLetters} yellowLetters={yellowLetters} blackLetters={blackLetters} />
+      <WordGuessForm guess={guess} currentWord={currentWord} setGreenLetters={setGreenLetters} setYellowLetters={setYellowLetters} setBlackLetters={setBlackLetters} setGuess={setGuess} />
     </div>
   );
 }
