@@ -26,11 +26,10 @@ body {
   border: 2px solid black;
   padding: 2%;
   flex-basis: 7%;
+  font-size: 20px;
 }
 
 .guessescontainer {
-  border: 2px solid rgb(195, 0, 255);
-  background-color: rgb(242, 215, 250);
   margin: 2%;
 }
 
@@ -45,4 +44,22 @@ body {
   border: 2px solid black;
   padding: 2%;
   flex-basis: 8%;
+  font-size: 20px;
+}
+
+input .wordinput {
+  height: 150px;
+  font-size: large;
+}
+
+.wordform {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+.formitem {
+  height: 10%;
+  flex-basis: 10%;
+  margin: 1%;
 }
