@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styles from "../styles.css";
 
 import GuessResult from "./GuessResult.jsx";
+import GuessesDisplay from "./GuessesDisplay.jsx";
 
-const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, setBlackLetters, setGuess, setGuesses}) => {
+const WordGuessForm = ({guess, currentWord, setGuess}) => {
 
   // const [wordsStartingWith, setWordStartingWith] = useState([]);
   const [words, setWords] = useState([]);
   const [numGuesses, setNumGuesses] = useState(0);
   const [win, setWin] = useState(false);
+  const [guesses, setGuesses] = useState([]);
+  // Array of green letters - pass set function to WordGuessForm
+  //  then pass array to Alphabet
+  const [greenLetters, setGreenLetters] = useState([]);
+  // Array of yellow letters
+  const [yellowLetters, setYellowLetters] = useState([]);
+  // Array of black letters
+  const [blackLetters, setBlackLetters] = useState([]);
 
   // const getWordsStartingWith = (word) => {
   //   let letter = word.charAt(0);
@@ -71,35 +81,38 @@ const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, s
   return (
     <div>
       <GuessResult numGuesses={numGuesses} win={win} guess={guess} />
-
-      <form onSubmit={event => {
-          event.preventDefault();
-          //getWordsStartingWith(event.target[0].value)
-          checkGuess(event.target[0].value, currentWord);
-          setGuess("");
-        }}
-      >
-        <label htmlFor="word">Guess a 5 letter word</label>
-        <input
-          type="text"
-          name="word"
-          id="word"
-          max="5"
-          value={guess}
-          onChange={event => {
-            if (event.target.value.length <= 5) {
-              setGuess(event.target.value);
-            } else {
-              alert("5 letters max");
-              setGuess("");
+      <GuessesDisplay guess={guess} guesses={guesses} greenLetters={greenLetters} yellowLetters={yellowLetters} blackLetters={blackLetters} />
+        <form onSubmit={event => {
+            event.preventDefault();
+            //getWordsStartingWith(event.target[0].value)
+            checkGuess(event.target[0].value, currentWord);
+            setGuess("");
+          }}
+        >
+          <div className={styles.wordform}>
+            <label className={styles.formitem} htmlFor="word">Guess a 5 letter word</label>
+            <input
+              className={styles.formitem}
+              style={{fontSize: "20px", height: "30px"}}
+              type="text"
+              name="word"
+              id="word"
+              max="5"
+              value={guess}
+              onChange={event => {
+                if (event.target.value.length <= 5) {
+                  setGuess(event.target.value);
+                } else {
+                  alert("5 letters max");
+                  setGuess("");
+                }
+              }
             }
-          }
-        }
-        ></input>
-        <input type="submit"></input>
-      </form>
+            ></input>
+            <input type="submit" className={styles.formitem}></input>
+          </div>
+        </form>
     </div>
-
   );
 };
 
