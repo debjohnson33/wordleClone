@@ -17,7 +17,13 @@ const Alphabet = ({greenLetters, yellowLetters, blackLetters}) => {
       <h1>Available letters:</h1>
       <div className={styles.container}>
         {alphabet.map((letter, i) => (
-          <LetterTile className={className} letter={letter} bgColor={greenLetters.includes(letter) ? "green" : yellowLetters.includes(letter) ? "yellow" : blackLetters.includes(letter) ? "black" : "white"} i={i} />
+          <LetterTile
+            className={className}
+            letter={letter}
+            bgColor={greenLetters.includes(letter) ? "green" : yellowLetters.includes(letter) ? "yellow" : blackLetters.includes(letter) ? "#6f7272" : "white"}
+            i={i}
+            color={blackLetters.includes(letter) ? "white" : "black"}
+          />
         ))}
       </div>
     </div>
