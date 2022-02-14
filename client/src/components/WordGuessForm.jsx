@@ -5,28 +5,12 @@ import styles from "../styles.css";
 import GuessResult from "./GuessResult.jsx";
 import GuessesDisplay from "./GuessesDisplay.jsx";
 
-const WordGuessForm = ({guess, currentWord, setGuess}) => {
+const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, setBlackLetters, setGuess}) => {
 
-  // const [wordsStartingWith, setWordStartingWith] = useState([]);
   const [words, setWords] = useState([]);
   const [numGuesses, setNumGuesses] = useState(0);
   const [win, setWin] = useState(false);
   const [guesses, setGuesses] = useState([]);
-  // Array of green letters - pass set function to WordGuessForm
-  //  then pass array to Alphabet
-  const [greenLetters, setGreenLetters] = useState([]);
-  // Array of yellow letters
-  const [yellowLetters, setYellowLetters] = useState([]);
-  // Array of black letters
-  const [blackLetters, setBlackLetters] = useState([]);
-
-  // const getWordsStartingWith = (word) => {
-  //   let letter = word.charAt(0);
-  //   axios.get(`/api/words/startWith?letter=${letter}`)
-  //     .then(res => {
-  //       setWordStartingWith(res.data);
-  //     })
-  // }
 
   useEffect(() => {
     axios.get(`/api/words/all`)
@@ -41,12 +25,29 @@ const WordGuessForm = ({guess, currentWord, setGuess}) => {
     });
   }
 
+  const changeGuessToArrOfObjects = (guess, bgColor, color) => {
+    let guessArr = guess.split("");
+    let guessObjArr = [];
+    guessArr.forEach(letter => {
+      guessObjArr.push({letter: letter, bgColor: bgColor, color: color});
+    });
+    return guessObjArr;
+  }
+
+  const changeColorOfGuess = (guessArr, index, bgColor, color) => {
+    guessArr[index].bgColor = bgColor;
+    guessArr[index].color = color;
+    return guessArr;
+  }
+
   const checkGuess = (guess, currentWord) => {
     setNumGuesses(numGuesses + 1);
-    setGuesses(guesses => [...guesses, guess]);
+    let guessArr = changeGuessToArrOfObjects(guess, "white", "black");
     if (guess === currentWord) {
       // set all letters to green from the word
+      guessArr = changeGuessToArrOfObjects(guess, "green", "white");
       changeToGreenBackground(guess);
+      setGuesses(guesses => [...guesses, guessArr]);
       setWin(true);
     } else {
       // check if guess is in the list of words
@@ -54,23 +55,23 @@ const WordGuessForm = ({guess, currentWord, setGuess}) => {
 
         // check each letter to see if it's in the word
         for (let i = 0; i < currentWord.length; i++) {
-
           if (currentWord.includes(guess.charAt(i))) {
             if (currentWord.charAt(i) === guess.charAt(i)) {
-              //  if in the word and right place, change to green
-              // Call function to change background to green
+              //  if in the word and right place, change to green background
               setGreenLetters(greenLetters => [...greenLetters, guess.charAt(i)]);
+              guessArr = changeColorOfGuess(guessArr, i, "green", "white");
             } else {
-              //  if in the word but wrong place, change to yellow
-              // Call function to change background to yellow
+              //  if in the word but wrong place, change to yellow background
               setYellowLetters(yellowLetters => [...yellowLetters, guess.charAt(i)]);
+              guessArr = changeColorOfGuess(guessArr, i, "yellow", "black");
             }
           } else {
-            // if not in word at all change to black
-            // Call function to change background to black
+            // if not in word at all change to grey background
             setBlackLetters(blackLetters => [...blackLetters, guess.charAt(i)]);
+            guessArr = changeColorOfGuess(guessArr, i, "#6f7272", "white");
           }
         }
+        setGuesses(guesses => [...guesses, guessArr]);
       } else {
         alert('Sorry, that word is not in the list of words');
       }
@@ -81,7 +82,7 @@ const WordGuessForm = ({guess, currentWord, setGuess}) => {
   return (
     <div>
       <GuessResult numGuesses={numGuesses} win={win} guess={guess} />
-      <GuessesDisplay guess={guess} guesses={guesses} greenLetters={greenLetters} yellowLetters={yellowLetters} blackLetters={blackLetters} />
+      <GuessesDisplay guess={guess} guesses={guesses} />
         <form onSubmit={event => {
             event.preventDefault();
             //getWordsStartingWith(event.target[0].value)
