@@ -3,16 +3,14 @@ import styles from "../styles.css";
 
 import LetterTile from "./LetterTile.jsx";
 
-const WordDisplay = ({ guess, greenLetters, yellowLetters, blackLetters, index }) => {
+const WordDisplay = ({ guess, index }) => {
   const className = styles.guesstile;
 
   return (
     <div className={styles.wordcontainer} key={index}>
-      {guess.split("").map((letter, i) => (
-        <div className={className} style={{backgroundColor: "white"}} key={i} >
-          {letter}
-        </div>
-      ))}
+      {guess.map((el, i) => {
+        return <LetterTile className={className} letter={el.letter} bgColor={el.bgColor} i={i} color={el.color} />
+      })}
     </div>
   );
 };
