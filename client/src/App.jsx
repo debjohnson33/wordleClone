@@ -15,6 +15,8 @@ const App = () => {
   // Array of black letters
   const [blackLetters, setBlackLetters] = useState([]);
   const [guess, setGuess] = useState("");
+  const [win, setWin] = useState(false);
+  const [lose, setLose] = useState(true);
 
   useEffect(() => {
     axios.get('/api/getRandomWord')
@@ -24,10 +26,18 @@ const App = () => {
       })
   }, [""]);
 
+  const renderModal = () => {
+    // win is true
+    //  return winnerModal
+    // lose is true
+    //  return loserModal
+  }
+
   return (
     <div>
       <Alphabet greenLetters={greenLetters} yellowLetters={yellowLetters} blackLetters={blackLetters} />
-      <WordGuessForm guess={guess} currentWord={currentWord} setGreenLetters={setGreenLetters} setYellowLetters={setYellowLetters} setBlackLetters={setBlackLetters} setGuess={setGuess} />
+      <WordGuessForm guess={guess} currentWord={currentWord} setGreenLetters={setGreenLetters} setYellowLetters={setYellowLetters} setBlackLetters={setBlackLetters} setGuess={setGuess} setWin={setWin} win={win} setLose={setLose} lose={lose} />
+      {renderModal()}
     </div>
   );
 }

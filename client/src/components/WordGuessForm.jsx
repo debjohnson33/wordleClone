@@ -5,11 +5,10 @@ import styles from "../styles.css";
 import GuessResult from "./GuessResult.jsx";
 import GuessesDisplay from "./GuessesDisplay.jsx";
 
-const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, setBlackLetters, setGuess}) => {
+const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, setBlackLetters, setGuess, setWin, win, setLose, lose}) => {
 
   const [words, setWords] = useState([]);
   const [numGuesses, setNumGuesses] = useState(0);
-  const [win, setWin] = useState(false);
   const [guesses, setGuesses] = useState([]);
 
   useEffect(() => {
@@ -75,7 +74,7 @@ const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, s
       } else {
         alert('Sorry, that word is not in the list of words');
       }
-      setWin(false);
+      setLose(true);
     }
   }
 
