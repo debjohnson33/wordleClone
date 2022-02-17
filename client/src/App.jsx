@@ -20,6 +20,16 @@ const App = () => {
   const [guess, setGuess] = useState("");
   const [win, setWin] = useState(false);
   const [lose, setLose] = useState(false);
+  const [words, setWords] = useState([]);
+  const [numGuesses, setNumGuesses] = useState(0);
+  const [guesses, setGuesses] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/api/words/all`)
+      .then(res => {
+        setWords(res.data);
+      })
+  },[]);
 
   useEffect(() => {
     axios.get('/api/getRandomWord')
@@ -28,6 +38,68 @@ const App = () => {
         setWord(res.data[0].word);
       })
   }, [""]);
+
+  const changeToGreenBackground = (guess) => {
+    guess.split("").forEach(letter => {
+      setGreenLetters(greenLetters => [...greenLetters, letter]);
+    });
+  }
+
+  const changeGuessToArrOfObjects = (guess, bgColor, color) => {
+    let guessArr = guess.split("");
+    let guessObjArr = [];
+    guessArr.forEach(letter => {
+      guessObjArr.push({letter: letter, bgColor: bgColor, color: color});
+    });
+    return guessObjArr;
+  }
+
+  const changeColorOfGuess = (guessArr, index, bgColor, color) => {
+    guessArr[index].bgColor = bgColor;
+    guessArr[index].color = color;
+    return guessArr;
+  }
+
+  const checkGuess = (guess, currentWord) => {
+    setNumGuesses(numGuesses + 1);
+    let guessArr = changeGuessToArrOfObjects(guess, "white", "black");
+    if (guess === currentWord) {
+      // set all letters to green from the word
+      guessArr = changeGuessToArrOfObjects(guess, "green", "white");
+      changeToGreenBackground(guess);
+      setGuesses(guesses => [...guesses, guessArr]);
+      setWin(true);
+    } else {
+      // check if guess is in the list of words
+      if (words.find(element => element.word === guess)) {
+
+        // check each letter to see if it's in the word
+        for (let i = 0; i < currentWord.length; i++) {
+          if (currentWord.includes(guess.charAt(i))) {
+            if (currentWord.charAt(i) === guess.charAt(i)) {
+              //  if in the word and right place, change to green background
+              setGreenLetters(greenLetters => [...greenLetters, guess.charAt(i)]);
+              guessArr = changeColorOfGuess(guessArr, i, "green", "white");
+            } else {
+              //  if in the word but wrong place, change to yellow background
+              setYellowLetters(yellowLetters => [...yellowLetters, guess.charAt(i)]);
+              guessArr = changeColorOfGuess(guessArr, i, "yellow", "black");
+            }
+          } else {
+            // if not in word at all change to grey background
+            setBlackLetters(blackLetters => [...blackLetters, guess.charAt(i)]);
+            guessArr = changeColorOfGuess(guessArr, i, "#6f7272", "white");
+          }
+        }
+        setGuesses(guesses => [...guesses, guessArr]);
+        if (guesses > 8) {
+          setLose(true);
+        }
+      } else {
+        alert('Sorry, that word is not in the list of words');
+      }
+    }
+  }
 
   const renderModal = () => {
     if (win === true) {
@@ -42,7 +114,7 @@ const App = () => {
   return (
     <div>
       <Alphabet greenLetters={greenLetters} yellowLetters={yellowLetters} blackLetters={blackLetters} />
-      <WordGuessForm guess={guess} currentWord={currentWord} setGreenLetters={setGreenLetters} setYellowLetters={setYellowLetters} setBlackLetters={setBlackLetters} setGuess={setGuess} setWin={setWin} setLose={setLose} />
+      <WordGuessForm guess={guess} guesses={guesses} numGuesses={numGuesses} currentWord={currentWord} setGuess={setGuess} checkGuess={checkGuess} />
       {renderModal()}
     </div>
   );
