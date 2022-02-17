@@ -5,7 +5,7 @@ import styles from "../styles.css";
 import GuessResult from "./GuessResult.jsx";
 import GuessesDisplay from "./GuessesDisplay.jsx";
 
-const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, setBlackLetters, setGuess, setWin, win, setLose, lose}) => {
+const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, setBlackLetters, setGuess, setWin, setLose}) => {
 
   const [words, setWords] = useState([]);
   const [numGuesses, setNumGuesses] = useState(0);
@@ -71,16 +71,18 @@ const WordGuessForm = ({guess, currentWord, setGreenLetters, setYellowLetters, s
           }
         }
         setGuesses(guesses => [...guesses, guessArr]);
+        if (guesses > 8) {
+          setLose(true);
+        }
       } else {
         alert('Sorry, that word is not in the list of words');
       }
-      setLose(true);
     }
   }
 
   return (
     <div>
-      <GuessResult numGuesses={numGuesses} win={win} guess={guess} />
+      <GuessResult numGuesses={numGuesses} guess={guess} />
       <GuessesDisplay guess={guess} guesses={guesses} />
         <form onSubmit={event => {
             event.preventDefault();
