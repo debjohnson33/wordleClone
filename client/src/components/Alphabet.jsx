@@ -22,7 +22,7 @@ const Alphabet = ({greenLetters, yellowLetters, blackLetters}) => {
             letter={letter}
             bgColor={greenLetters.includes(letter) ? "green" : yellowLetters.includes(letter) ? "yellow" : blackLetters.includes(letter) ? "#6f7272" : "white"}
             i={i}
-            color={blackLetters.includes(letter) ? "white" : "black"}
+            color={blackLetters.includes(letter) ? "white" : greenLetters.includes(letter) ? "white" : "black"}
           />
         ))}
       </div>
