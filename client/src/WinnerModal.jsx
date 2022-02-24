@@ -2,10 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./styles.css";
 
-const WinnerModal = ({  }) => {
+const WinnerModal = ({ numGuesses }) => {
   return (
     <div className={styles.modal}>
       <h2>WINNER!</h2>
+      <p>You guessed the word in {numGuesses} guesses!</p>
     </div>
   )
 };
