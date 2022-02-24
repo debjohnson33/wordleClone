@@ -10,7 +10,7 @@ const Alphabet = ({greenLetters, yellowLetters, blackLetters}) => {
   // for each black letter, change background to black
 
   // Make letter tile component and pass in letter, background color
-  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   const className = styles.letter;
   return (
     <div>
@@ -19,10 +19,10 @@ const Alphabet = ({greenLetters, yellowLetters, blackLetters}) => {
         {alphabet.map((letter, i) => (
           <LetterTile
             className={className}
-            letter={letter}
-            bgColor={greenLetters.includes(letter) ? "green" : yellowLetters.includes(letter) ? "yellow" : blackLetters.includes(letter) ? "#6f7272" : "white"}
+            letter={letter.toUpperCase()}
+            bgColor={greenLetters.includes(letter.toLowerCase()) ? "green" : yellowLetters.includes(letter.toLowerCase()) ? "yellow" : blackLetters.includes(letter.toLowerCase()) ? "#6f7272" : "white"}
             i={i}
-            color={blackLetters.includes(letter) ? "white" : greenLetters.includes(letter) ? "white" : "black"}
+            color={blackLetters.includes(letter.toLowerCase()) ? "white" : greenLetters.includes(letter.toLowerCase()) ? "white" : "black"}
           />
         ))}
       </div>
