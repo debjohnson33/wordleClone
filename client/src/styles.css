@@ -24,8 +24,8 @@ body {
 
 .letter {
   border: 2px solid black;
-  padding: 2%;
-  flex-basis: 7%;
+  padding: 1%;
+  flex-basis: 6%;
   font-size: 20px;
 }
 
@@ -42,8 +42,8 @@ body {
 
 .guesstile {
   border: 2px solid black;
-  padding: 2%;
-  flex-basis: 8%;
+  padding: 1%;
+  flex-basis: 6%;
   font-size: 20px;
 }
 
@@ -76,6 +76,7 @@ input .wordinput {
 
 .modal {
   background-color: rgba(0,0,0,0.5);
+  color:rgb(236, 236, 240);
   position: fixed;
   height: 100%;
   width: 100%;
