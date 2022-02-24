@@ -61,7 +61,7 @@ const App = () => {
   }
 
   const checkGuess = (guess, currentWord) => {
-    setNumGuesses(numGuesses + 1);
+
     let guessArr = changeGuessToArrOfObjects(guess, "white", "black");
     if (guess === currentWord) {
       // set all letters to green from the word
@@ -72,7 +72,7 @@ const App = () => {
     } else {
       // check if guess is in the list of words
       if (words.find(element => element.word === guess)) {
-
+        setNumGuesses(numGuesses + 1);
         // check each letter to see if it's in the word
         for (let i = 0; i < currentWord.length; i++) {
           if (currentWord.includes(guess.charAt(i))) {
@@ -95,7 +95,7 @@ const App = () => {
       } else {
         alert('Sorry, that word is not in the list of words');
       }
-      if (numGuesses > 8) {
+      if (numGuesses > 7) {
         setLose(true);
       }
     }
@@ -103,12 +103,29 @@ const App = () => {
 
   const renderModal = () => {
     if (win === true) {
-      return <WinnerModal numGuesses={numGuesses} />
+      return <WinnerModal numGuesses={numGuesses} onQuit={onQuit} />
     } else if (lose === true) {
-      return <LoserModal correctWord={currentWord} />
+      return <LoserModal correctWord={currentWord} onQuit={onQuit} />
     } else {
       null
     }
+  }
+
+  const resetGame = () => {
+    setWord("");
+    setGreenLetters([]);
+    setYellowLetters([]);
+    setBlackLetters([]);
+    setGuess("");
+    setWin(false);
+    setLose(false);
+    setNumGuesses(0);
+    setGuesses([]);
+  }
+
+  const onQuit = () => {
+    resetGame();
+    window.location.reload();
   }
 
   return (
