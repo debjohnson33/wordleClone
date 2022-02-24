@@ -92,20 +92,20 @@ const App = () => {
           }
         }
         setGuesses(guesses => [...guesses, guessArr]);
-        if (guesses > 8) {
-          setLose(true);
-        }
       } else {
         alert('Sorry, that word is not in the list of words');
+      }
+      if (numGuesses > 8) {
+        setLose(true);
       }
     }
   }
 
   const renderModal = () => {
     if (win === true) {
-      <WinnerModal />
+      return <WinnerModal numGuesses={numGuesses} />
     } else if (lose === true) {
-      <LoserModal correctWord={currentWord} />
+      return <LoserModal correctWord={currentWord} />
     } else {
       null
     }
