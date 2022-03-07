@@ -14,14 +14,14 @@ const Alphabet = ({greenLetters, yellowLetters, blackLetters}) => {
   const className = styles.letter;
   return (
     <div>
-      <h1>Available letters:</h1>
+      <h2>Available letters:</h2>
       <div className={styles.container}>
         {alphabet.map((letter, i) => (
           <LetterTile
             className={className}
             letter={letter.toUpperCase()}
             bgColor={greenLetters.includes(letter.toLowerCase()) ? "green" : yellowLetters.includes(letter.toLowerCase()) ? "yellow" : blackLetters.includes(letter.toLowerCase()) ? "#6f7272" : "white"}
-            i={i}
+            key={i}
             color={blackLetters.includes(letter.toLowerCase()) ? "white" : greenLetters.includes(letter.toLowerCase()) ? "white" : "black"}
           />
         ))}
