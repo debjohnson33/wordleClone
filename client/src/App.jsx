@@ -3,6 +3,7 @@ import axios from "axios";
 
 import WordGuessForm from "./components/WordGuessForm.jsx";
 import Alphabet from "./components/Alphabet.jsx";
+import Header from "./components/Header.jsx";
 import styles from "./styles.css";
 
 import WinnerModal from "./WinnerModal.jsx";
@@ -130,9 +131,12 @@ const App = () => {
 
   return (
     <div>
+      <Header />
+      <div className={styles.app}>
       <Alphabet greenLetters={greenLetters} yellowLetters={yellowLetters} blackLetters={blackLetters} />
       <WordGuessForm guess={guess} guesses={guesses} numGuesses={numGuesses} currentWord={currentWord} setGuess={setGuess} checkGuess={checkGuess} />
       {renderModal()}
+      </div>
     </div>
   );
 }
