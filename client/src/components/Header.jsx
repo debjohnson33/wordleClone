@@ -6,6 +6,13 @@ import styles from "../styles.css";
 
 const Header = () => {
   const {isShowing, toggle} = useModal();
+
+  const handleKeyPress = e => {
+    if (e.keyCode === 13) {
+      toggle();
+    }
+  }
+
   return (
       <div className={styles.header}>
         <ul>
@@ -13,7 +20,7 @@ const Header = () => {
           <li><button id={styles.rules} onClick={toggle}><h2>Rules</h2></button></li>
         </ul>
         <FocusTrap active={isShowing}>
-          <RulesModal isShowing={isShowing} hide={toggle}/>
+          <RulesModal isShowing={isShowing} hide={toggle} handleKeyPress={handleKeyPress} />
         </FocusTrap>
       </div>
   );

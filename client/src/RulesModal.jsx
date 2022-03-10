@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./styles.css";
 
-const RulesModal = ({isShowing, hide}) => isShowing ? ReactDOM.createPortal(
+const RulesModal = ({isShowing, hide, handleKeyPress }) => isShowing ? ReactDOM.createPortal(
     <React.Fragment>
       <div className={styles.modal}>
         <div id={styles.rulesModal}>
@@ -12,7 +12,7 @@ const RulesModal = ({isShowing, hide}) => isShowing ? ReactDOM.createPortal(
             <li>You have 8 guesses to get the word</li>
             <li>If your guess is not a word, an alert will come up and tell you. This guess will not count toward the 8 guesses</li>
           </ul>
-          <button onClick={hide}>Close</button>
+          <button onClick={hide} onKeyPress={handleKeyPress} >Close</button>
         </div>
       </div>
     </React.Fragment>, document.body
