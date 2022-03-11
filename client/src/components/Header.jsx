@@ -8,7 +8,7 @@ const Header = () => {
   const {isShowing, toggle} = useModal();
 
   const handleKeyPress = e => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 || e.keyCode === 27) {
       toggle();
     }
   }

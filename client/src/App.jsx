@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import FocusTrap from "focus-trap-react";
 
 import WordGuessForm from "./components/WordGuessForm.jsx";
 import Alphabet from "./components/Alphabet.jsx";
@@ -104,9 +105,9 @@ const App = () => {
 
   const renderModal = () => {
     if (win === true) {
-      return <WinnerModal numGuesses={numGuesses} onQuit={onQuit} />
+      return <FocusTrap><WinnerModal numGuesses={numGuesses} onQuit={onQuit} /></FocusTrap>
     } else if (lose === true) {
-      return <LoserModal correctWord={currentWord} onQuit={onQuit} />
+      return <FocusTrap><LoserModal correctWord={currentWord} onQuit={onQuit} /></FocusTrap>
     } else {
       null
     }
